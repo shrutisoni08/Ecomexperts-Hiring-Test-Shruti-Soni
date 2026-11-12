@@ -1,0 +1,707 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .cg-grid-section {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 56px 48px 72px;
+    background: #ffffff;
+  }
+
+  .cg-grid-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000000;
+    margin: 0 0 28px 0;
+  }
+
+  .cg-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .cg-product-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background-color: #f4f4f4;
+    overflow: hidden;
+  }
+
+  .cg-product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .cg-product-card:hover img {
+    transform: scale(1.03);
+  }
+
+  /* Hotspot '+' Button */
+  .cg-hotspot-btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease, background-color 0.25s ease;
+    padding: 0;
+    z-index: 3;
+  }
+
+  .cg-hotspot-btn:hover {
+    transform: translate(-50%, -50%) scale(1.18);
+    background-color: #fff544;
+  }
+
+  .cg-hotspot-btn svg {
+    width: 11px;
+    height: 11px;
+    stroke: #000000;
+    stroke-width: 2;
+  }
+
+  /* Modal Overlay */
+  .cg-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+  }
+
+  .cg-modal-overlay.is-open {
+    display: flex;
+  }
+
+  .cg-modal-box {
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    max-width: 340px;
+    padding: 28px 20px 22px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    animation: cgFadeIn 0.2s ease-out;
+  }
+
+  @keyframes cgFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cg-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: #000000;
+    padding: 4px;
+  }
+
+  .cg-modal-top {
+    display: grid;
+    grid-template-columns: 115px 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .cg-modal-img {
+    width: 115px;
+    height: 140px;
+    object-fit: cover;
+    background: #f4f4f4;
+  }
+
+  .cg-modal-title {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 2px 0 6px;
+    color: #000000;
+  }
+
+  .cg-modal-price {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #000000;
+  }
+
+  .cg-modal-desc {
+    font-size: 12px;
+    line-height: 1.38;
+    color: #333333;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cg-option-group {
+    margin-bottom: 14px;
+  }
+
+  .cg-option-label {
+    display: block;
+    font-size: 12px;
+    color: #333333;
+    margin-bottom: 6px;
+  }
+
+  /* Color Split Buttons matching screenshot */
+  .cg-color-tabs {
+    display: flex;
+    border: 1px solid #000000;
+  }
+
+  .cg-color-tab {
+    flex: 1;
+    position: relative;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-right: 1px solid #000000;
+    padding: 10px 12px;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .cg-color-tab:last-child {
+    border-right: none;
+  }
+
+  .cg-color-tab::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: var(--swatch-color, #000000);
+  }
+
+  .cg-color-tab.is-active {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* Custom Dropdown matching screenshot */
+  .cg-select-wrap {
+    position: relative;
+    display: flex;
+    border: 1px solid #000000;
+    background: #ffffff;
+  }
+
+  .cg-select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    padding: 10px 44px 10px 12px;
+    font-size: 14px;
+    color: #000000;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .cg-select-arrow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    border-left: 1px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  /* Add to Cart Button */
+  .cg-atc-btn {
+    width: 100%;
+    margin-top: 8px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .cg-atc-btn:hover:not(:disabled) {
+    background-color: #222222;
+  }
+
+  .cg-atc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .cg-modal-feedback {
+    font-size: 12px;
+    margin-top: 8px;
+    text-align: center;
+    min-height: 16px;
+    color: #000000;
+  }
+
+  /* Mobile Responsiveness */
+  @media screen and (max-width: 900px) {
+    .cg-grid-section {
+      padding: 40px 24px;
+    }
+    .cg-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .cg-grid-section {
+      padding: 32px 16px;
+    }
+    .cg-grid-heading {
+      font-size: 24px;
+      text-align: center;
+    }
+    .cg-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }
+{%- endstyle -%}
+
+<section id="gift-grid" class="cg-grid-section" data-section-id="{{ section.id }}">
+  <h2 class="cg-grid-heading">{{ section.settings.grid_heading }}</h2>
+
+  <div class="cg-products-grid">
+    {%- for block in section.blocks -%}
+      {%- assign card_product = block.settings.product -%}
+      <div class="cg-product-card" {{ block.shopify_attributes }}>
+        {%- if card_product != blank -%}
+          {%- assign display_img = block.settings.custom_image | default: card_product.featured_image -%}
+          {%- if display_img != blank -%}
+            <img
+              src="{{ display_img | image_url: width: 800 }}"
+              alt="{{ card_product.title | escape }}"
+              loading="lazy"
+              width="800"
+              height="800"
+            >
+          {%- endif -%}
+
+          <button
+            type="button"
+            class="cg-hotspot-btn js-open-product-modal"
+            style="left: {{ block.settings.hotspot_x }}%; top: {{ block.settings.hotspot_y }}%;"
+            aria-label="Quick view {{ card_product.title | escape }}"
+            data-product-handle="{{ card_product.handle }}"
+          >
+            <svg viewBox="0 0 12 12" fill="none">
+              <path d="M6 1V11M1 6H11" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <!-- Embedded Product JSON for Instant Zero-Latency Popup -->
+          <script type="application/json" class="js-product-json" data-handle="{{ card_product.handle }}">
+            {
+              "id": {{ card_product.id | json }},
+              "title": {{ card_product.title | json }},
+              "description": {{ card_product.description | strip_html | truncate: 220 | json }},
+              "image": {{ display_img | image_url: width: 400 | json }},
+              "options": {{ card_product.options_with_values | json }},
+              "variants": [
+                {%- for variant in card_product.variants -%}
+                  {
+                    "id": {{ variant.id | json }},
+                    "title": {{ variant.title | json }},
+                    "price": {{ variant.price | money | json }},
+                    "available": {{ variant.available | json }},
+                    "options": {{ variant.options | json }},
+                    "featured_image": {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}
+                  }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            }
+          </script>
+        {%- else -%}
+          {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <!-- Quick View Popup Modal -->
+  <div class="cg-modal-overlay js-cg-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="cg-modal-box">
+      <button type="button" class="cg-modal-close js-cg-close" aria-label="Close popup">&times;</button>
+
+      <div class="cg-modal-top">
+        <img src="#" alt="img" width="auto" height="auto" class="cg-modal-img js-modal-img">
+        <div>
+          <h3 class="cg-modal-title js-modal-title"></h3>
+          <p class="cg-modal-price js-modal-price"></p>
+          <p class="cg-modal-desc js-modal-desc"></p>
+        </div>
+      </div>
+
+      <div class="js-modal-options"></div>
+
+      <button type="button" class="cg-atc-btn js-modal-atc">
+        <span>ADD TO CART</span>
+        <span>&rarr;</span>
+      </button>
+      <p class="cg-modal-feedback js-modal-feedback"></p>
+    </div>
+  </div>
+</section>
+
+{%- assign bonus_product = all_products[section.settings.bonus_product] -%}
+{%- if bonus_product == blank -%}
+  {%- assign bonus_product = all_products['soft-winter-jacket'] -%}
+{%- endif -%}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const modal = section.querySelector('.js-cg-modal');
+    const closeBtn = section.querySelector('.js-cg-close');
+    const modalImg = section.querySelector('.js-modal-img');
+    const modalTitle = section.querySelector('.js-modal-title');
+    const modalPrice = section.querySelector('.js-modal-price');
+    const modalDesc = section.querySelector('.js-modal-desc');
+    const optionsContainer = section.querySelector('.js-modal-options');
+    const atcBtn = section.querySelector('.js-modal-atc');
+    const feedbackEl = section.querySelector('.js-modal-feedback');
+
+    // Bonus product variant ID ("Soft Winter Jacket")
+    const bonusVariantId = {{ bonus_product.selected_or_first_available_variant.id | default: 'null' }};
+
+    let currentProduct = null;
+    let selectedOptions = [];
+
+    // Parse embedded product payloads
+    const productsMap = {};
+    section.querySelectorAll('.js-product-json').forEach((script) => {
+      try {
+        const data = JSON.parse(script.textContent);
+        productsMap[script.dataset.handle] = data;
+      } catch (err) {
+        console.error('Error parsing product JSON:', err);
+      }
+    });
+
+    function getMatchingVariant() {
+      if (!currentProduct) return null;
+      return currentProduct.variants.find((variant) =>
+        variant.options.every((optVal, idx) => optVal === selectedOptions[idx])
+      );
+    }
+
+    function updateModalVariantState() {
+      const matched = getMatchingVariant();
+      const allChosen = selectedOptions.every((val) => val !== '');
+
+      if (matched) {
+        modalPrice.textContent = matched.price;
+        if (matched.featured_image) {
+          modalImg.src = matched.featured_image;
+        }
+        atcBtn.disabled = !matched.available;
+        atcBtn.querySelector('span:first-child').textContent = matched.available ? 'ADD TO CART' : 'SOLD OUT';
+      } else if (!allChosen) {
+        atcBtn.disabled = true;
+        atcBtn.querySelector('span:first-child').textContent = 'ADD TO CART';
+      } else {
+        atcBtn.disabled = true;
+        atcBtn.querySelector('span:first-child').textContent = 'UNAVAILABLE';
+      }
+    }
+
+    function renderDynamicOptions(product) {
+      optionsContainer.innerHTML = '';
+      selectedOptions = new Array(product.options.length).fill('');
+
+      product.options.forEach((option, optionIndex) => {
+        const group = document.createElement('div');
+        group.className = 'cg-option-group';
+
+        const label = document.createElement('label');
+        label.className = 'cg-option-label';
+        label.textContent = option.name;
+        group.appendChild(label);
+
+        const isColor = option.name.toLowerCase() === 'color' || option.name.toLowerCase() === 'colour';
+
+        if (isColor) {
+          // Render split button tabs like the screenshot
+          const tabsWrap = document.createElement('div');
+          tabsWrap.className = 'cg-color-tabs';
+
+          option.values.forEach((val, valIdx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'cg-color-tab';
+            btn.textContent = val;
+            btn.style.setProperty('--swatch-color', val.toLowerCase());
+
+            // Pre-select first color by default
+            if (valIdx === 0) {
+              btn.classList.add('is-active');
+              selectedOptions[optionIndex] = val;
+            }
+
+            btn.addEventListener('click', () => {
+              tabsWrap.querySelectorAll('.cg-color-tab').forEach((b) => b.classList.remove('is-active'));
+              btn.classList.add('is-active');
+              selectedOptions[optionIndex] = val;
+              feedbackEl.textContent = '';
+              updateModalVariantState();
+            });
+
+            tabsWrap.appendChild(btn);
+          });
+
+          group.appendChild(tabsWrap);
+        } else {
+          // Render custom dropdown ("Choose your size")
+          const selectWrap = document.createElement('div');
+          selectWrap.className = 'cg-select-wrap';
+
+          const select = document.createElement('select');
+          select.className = 'cg-select';
+
+          const placeholderOpt = document.createElement('option');
+          placeholderOpt.value = '';
+          placeholderOpt.textContent = `Choose your ${option.name.toLowerCase()}`;
+          placeholderOpt.disabled = true;
+          placeholderOpt.selected = true;
+          select.appendChild(placeholderOpt);
+
+          option.values.forEach((val) => {
+            const opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = val;
+            select.appendChild(opt);
+          });
+
+          select.addEventListener('change', (e) => {
+            selectedOptions[optionIndex] = e.target.value;
+            feedbackEl.textContent = '';
+            updateModalVariantState();
+          });
+
+          const arrowBox = document.createElement('span');
+          arrowBox.className = 'cg-select-arrow';
+          arrowBox.innerHTML = `<svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="#000" stroke-width="1.5"/></svg>`;
+
+          selectWrap.appendChild(select);
+          selectWrap.appendChild(arrowBox);
+          group.appendChild(selectWrap);
+        }
+
+        optionsContainer.appendChild(group);
+      });
+
+      // Handle products with only "Default Title"
+      if (product.options.length === 1 && product.options[0].name === 'Title') {
+        optionsContainer.innerHTML = '';
+        selectedOptions = [product.variants[0].options[0]];
+      }
+
+      updateModalVariantState();
+    }
+
+    function openModal(product) {
+      currentProduct = product;
+      modalImg.src = product.image || '';
+      modalImg.alt = product.title;
+      modalTitle.textContent = product.title;
+      modalPrice.textContent = product.variants[0]?.price || '';
+      modalDesc.textContent = product.description || '';
+      feedbackEl.textContent = '';
+
+      renderDynamicOptions(product);
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    section.querySelectorAll('.js-open-product-modal').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const productData = productsMap[btn.dataset.productHandle];
+        if (productData) openModal(productData);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    // Add to Cart + Conditional Soft Winter Jacket Rule
+    atcBtn.addEventListener('click', async () => {
+      const variant = getMatchingVariant();
+      if (!variant) return;
+
+      atcBtn.disabled = true;
+      const originalLabel = atcBtn.querySelector('span:first-child').textContent;
+      atcBtn.querySelector('span:first-child').textContent = 'ADDING...';
+
+      const itemsToAdd = [{ id: variant.id, quantity: 1 }];
+
+      // Check if variant options contain both "Black" and "Medium"
+      const normalizedOpts = variant.options.map((o) => o.trim().toLowerCase());
+      const hasBlackAndMedium = normalizedOpts.includes('black') && normalizedOpts.includes('medium');
+
+      if (hasBlackAndMedium && bonusVariantId && bonusVariantId !== variant.id) {
+        itemsToAdd.push({ id: bonusVariantId, quantity: 1 });
+      }
+
+      try {
+        const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: itemsToAdd })
+        });
+
+        if (!response.ok) throw new Error('Failed to add to cart');
+
+        // Refresh Dawn Cart Drawer / Cart Bubble if present
+        const cartDrawer = document.querySelector('cart-drawer');
+        if (cartDrawer) {
+          const sectionsRes = await fetch(`${window.Shopify.routes.root}?sections=cart-drawer,cart-icon-bubble`);
+          const sectionsData = await sectionsRes.json();
+          cartDrawer.renderContents({ sections: sectionsData });
+          closeModal();
+        } else {
+          feedbackEl.textContent = hasBlackAndMedium
+            ? 'Added to cart + free Soft Winter Jacket!'
+            : 'Added to cart!';
+          setTimeout(closeModal, 900);
+        }
+      } catch (err) {
+        feedbackEl.textContent = 'Could not add item. Please try again.';
+      } finally {
+        atcBtn.disabled = false;
+        atcBtn.querySelector('span:first-child').textContent = originalLabel;
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Gift Product Grid",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "grid_heading",
+      "label": "Grid Heading",
+      "default": "Tisso vison in the wild"
+    },
+    {
+      "type": "product",
+      "id": "bonus_product",
+      "label": "Auto-Add Bonus Product (Black + Medium rule)",
+      "info": "Defaults to the product with handle 'soft-winter-jacket' if left blank."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Block",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Optional Override Lifestyle Image"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_x",
+          "min": 10,
+          "max": 90,
+          "step": 1,
+          "unit": "%",
+          "label": "Plus Icon Horizontal Position (X)",
+          "default": 65
+        },
+        {
+          "type": "range",
+          "id": "hotspot_y",
+          "min": 10,
+          "max": 90,
+          "step": 1,
+          "unit": "%",
+          "label": "Plus Icon Vertical Position (Y)",
+          "default": 45
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Gift Product Grid",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
